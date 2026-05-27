@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Alta Performance Comercial — Maximize Assessoria Esportiva</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Narrow:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        display: ['"Archivo"', 'sans-serif'],
+        narrow: ['"Archivo Narrow"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
+      },
+      colors: {
+        ink:      '#0f172a',
+        graphite: '#334155',
+        mute:     '#64748b',
+        line:     '#e2e8f0',
+        soft:     '#f1f5f9',
+        canvas:   '#f8fafc',
+        lime:     '#10b981',
+        royal:    '#2563eb',
+        alert:    '#ef4444',
+      }
+    }
+  }
+}
+</script>
+<style>
+  html, body { background:#f8fafc; color:#0f172a; font-family:'Archivo', sans-serif; }
+  body { overflow:hidden; }
+
+  /* Slide stage */
+  .slide { display:none; }
+  .slide.active { display:flex; animation: fadeUp .55s cubic-bezier(.16,1,.3,1); }
+  @keyframes fadeUp {
+    0%   { opacity:0; transform: translateY(14px); }
+    100% { opacity:1; transform: translateY(0); }
+  }
+
+  /* Subtle grid background for atmosphere */
+  .gridbg {
+    background-image:
+      linear-gradient(#0f172a05 1px, transparent 1px),
+      linear-gradient(90deg, #0f172a05 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Hairline divider used everywhere */
+  .hair { border-top:1px solid #e2e8f0; }
+
+  /* Number callouts */
+  .stat-num {
+    font-family:'Archivo', sans-serif;
+    font-weight:900;
+    letter-spacing:-.04em;
+    line-height:.9;
+  }
+
+  /* Chart bar animation when slide becomes active */
+  .bar-fill { width:0%; transition: width 1.1s cubic-bezier(.22,1,.36,1); }
+  .slide.active .bar-fill { width: var(--w, 0%); }
+
+  /* Eyebrow tag */
+  .eyebrow {
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:#64748b;
+  }
+
+  /* Edge ticks like a race track */
+  .ticks {
+    background-image: repeating-linear-gradient(
+      90deg, #0f172a 0 1px, transparent 1px 10px
+    );
+    height: 2px;
+  }
+
+  /* Pulse dot */
+  .pulse {
+    position:relative;
+  }
+  .pulse::after {
+    content:''; position:absolute; inset:-6px; border-radius:9999px;
+    border:2px solid #10b981; animation: pulseRing 1.6s ease-out infinite;
+  }
+  @keyframes pulseRing {
+    0%   { transform:scale(.6); opacity:.9; }
+    100% { transform:scale(1.4); opacity:0; }
+  }
+
+  /* Scroll inside slide if content tall */
+  .slide-body { overflow-y:auto; }
+  .slide-body::-webkit-scrollbar { width:6px; }
+  .slide-body::-webkit-scrollbar-thumb { background:#cbd5e1; border-radius:99px; }
+
+  /* Print-quality card */
+  .card {
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+  }
+
+  /* Counter underline */
+  .udot { width:6px; height:6px; border-radius:99px; background:#10b981; display:inline-block; }
+
+  /* Slanted ribbon for capa */
+  .ribbon {
+    background: linear-gradient(90deg, #10b981 0%, #0ea968 100%);
+  }
+
+  /* Keyboard hint */
+  kbd {
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    padding:2px 6px;
+    border:1px solid #cbd5e1;
+    border-bottom-width:2px;
+    border-radius:6px;
+    background:#fff;
+    color:#334155;
+  }
+
+  /* For the meter bar in slide 11 */
+  .meter { background:#f1f5f9; height:6px; border-radius:99px; overflow:hidden; }
+  .meter > span { display:block; height:100%; border-radius:99px; background:#10b981; }
+
+  /* Title size system */
+  .h-hero { font-size: clamp(38px, 5.6vw, 84px); line-height:.92; letter-spacing:-.035em; }
+  .h-1    { font-size: clamp(28px, 3.4vw, 48px); line-height:1.02; letter-spacing:-.03em; }
+  .h-2    { font-size: clamp(20px, 2vw, 28px);  line-height:1.1;  letter-spacing:-.02em; }
+
+  /* nav button hover */
+  .navbtn { transition: all .2s ease; }
+  .navbtn:hover { transform: translateY(-1px); }
+  .navbtn:disabled { opacity:.35; cursor:not-allowed; transform:none; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- ====== APP SHELL ====== -->
+<div class="h-screen w-screen flex flex-col">
+
+  <!-- TOP BAR -->
+  <header class="flex items-center justify-between px-6 md:px-10 py-4 border-b border-line bg-white/70 backdrop-blur z-20">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-ink text-white grid place-items-center font-display font-black tracking-tighter">M</div>
+      <div class="leading-tight">
+        <div class="font-display font-black text-ink text-[15px] tracking-tight">MAXIMIZE</div>
+        <div class="eyebrow !text-[9px] !tracking-[.22em]">Treinamento Comercial · 2026</div>
+      </div>
+    </div>
+    <div class="hidden md:flex items-center gap-4 eyebrow">
+      <span><kbd>←</kbd> <kbd>→</kbd> Navegar</span>
+      <span class="text-line">|</span>
+      <span><span id="slideNow">01</span> <span class="text-mute">/</span> <span id="slideTotal">12</span></span>
+    </div>
+  </header>
+
+  <!-- PROGRESS RAIL -->
+  <div class="px-6 md:px-10 py-2 border-b border-line bg-white">
+    <div class="flex items-center gap-1.5" id="progressDots"></div>
+  </div>
+
+  <!-- STAGE -->
+  <main class="flex-1 relative overflow-hidden bg-canvas">
+
+    <!-- ============== SLIDE 01 — CAPA ============== -->
+    <section class="slide active absolute inset-0 flex-col gridbg" data-slide="1">
+      <div class="flex-1 grid md:grid-cols-12 gap-0">
+        <!-- Left col -->
+        <div class="md:col-span-8 px-8 md:px-16 py-10 md:py-16 flex flex-col justify-between relative">
+          <div>
+            <div class="flex items-center gap-3 mb-8">
+              <span class="udot"></span>
+              <span class="eyebrow">Vitória · ES · Maio 2026</span>
+            </div>
+            <div class="eyebrow text-ink mb-6">Capítulo 01 — A Largada</div>
+            <h1 class="h-hero font-display font-black text-ink">
+              Alta<br/>
+              Performance<br/>
+              <span class="text-lime">Comercial.</span>
+            </h1>
+            <p class="mt-8 text-graphite text-lg md:text-xl max-w-xl leading-snug">
+              Do tatame presencial à <span class="font-semibold text-ink">linha de chegada digital</span>.
+              Como transformar atendimento em vendas — em minutos, não em horas.
+            </p>
+          </div>
+
+          <div class="mt-12 flex flex-wrap items-center gap-8">
+            <div>
+              <div class="eyebrow mb-1">Para</div>
+              <div class="font-display font-bold text-ink">Time Comercial Maximize</div>
+            </div>
+            <div class="w-px h-10 bg-line"></div>
+            <div>
+              <div class="eyebrow mb-1">Duração</div>
+              <div class="font-display font-bold text-ink">~ 90 min · 12 estações</div>
+            </div>
+            <div class="w-px h-10 bg-line"></div>
+            <div>
+              <div class="eyebrow mb-1">Objetivo</div>
+              <div class="font-display font-bold text-ink">Conversão online 10× maior</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right col -->
+        <div class="md:col-span-4 bg-ink text-white p-8 md:p-12 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-12 -top-12 w-64 h-64 rounded-full bg-lime/20 blur-3xl"></div>
+          <div class="absolute right-6 bottom-6 w-40 h-40 rounded-full bg-royal/30 blur-2xl"></div>
+
+          <div class="relative">
+            <div class="flex items-center gap-2 mb-6">
+              <span class="pulse w-2 h-2 rounded-full bg-lime"></span>
+              <span class="eyebrow !text-white/70">Sessão ao vivo</span>
+            </div>
+            <div class="grid grid-cols-2 gap-6">
+              <div>
+                <div class="eyebrow !text-white/50 mb-2">Triathlon</div>
+                <i class="fa-solid fa-person-swimming text-2xl text-lime"></i>
+              </div>
+              <div>
+                <div class="eyebrow !text-white/50 mb-2">Corrida</div>
+                <i class="fa-solid fa-person-running text-2xl text-lime"></i>
+              </div>
+              <div>
+                <div class="eyebrow !text-white/50 mb-2">Ciclismo</div>
+                <i class="fa-solid fa-bicycle text-2xl text-lime"></i>
+              </div>
+              <div>
+                <div class="eyebrow !text-white/50 mb-2">Natação</div>
+                <i class="fa-solid fa-water text-2xl text-lime"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="ticks mb-6 opacity-50"></div>
+            <div class="font-narrow text-white/70 text-sm uppercase tracking-widest">"O placar é digital agora"</div>
+            <div class="font-display font-black text-3xl mt-2 leading-tight">A linha de chegada<br/>começa no <span class="text-lime">primeiro clique.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SLIDE 02 — A GRANDE VIRADA ============== -->
+    <section class="slide absolute inset-0 flex-col" data-slide="2">
+      <div class="px-8 md:px-16 py-10 md:py-12 slide-body flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="udot"></span>
+          <span class="eyebrow">02 · Choque de Realidade</span>
+        </div>
+        <h2 class="h-1 font-display font-black text-ink mb-3">A grande virada de <span class="text-lime">jogo.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+          O lead que entra pela porta da Maximize <span class="text-ink font-semibold">não é mais o mesmo</span>.
+          Quem chega pela indicação tem paciência de atleta veterano. Quem chega pelo Instagram tem o dedo no botão de "fechar conversa".
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- PRESENCIAL -->
+          <div class="card p-8 relative overflow-hidden">
+            <div class="absolute right-5 top-5 eyebrow">Antes / 95% do faturamento</div>
+            <i class="fa-solid fa-handshake-angle text-royal text-3xl"></i>
+            <h3 class="h-2 font-display font-black mt-5 mb-1 text-ink">Lead presencial</h3>
+            <div class="font-narrow text-mute uppercase tracking-widest text-xs mb-6">Indicação · Confiança · Tradição</div>
+
+            <ul class="space-y-4 text-graphite">
+              <li class="flex items-start gap-3"><i class="fa-solid fa-check text-royal mt-1"></i><div>Já <span class="text-ink font-semibold">conhece a marca</span> antes do primeiro "oi"</div></li>
+              <li class="flex items-start gap-3"><i class="fa-solid fa-check text-royal mt-1"></i><div>Tolera <span class="text-ink font-semibold">horas ou dias</span> sem resposta</div></li>
+              <li class="flex items-start gap-3"><i class="fa-solid fa-check text-royal mt-1"></i><div>Vem na recomendação de um <span class="text-ink font-semibold">aluno feliz</span></div></li>
+              <li class="flex items-start gap-3"><i class="fa-solid fa-check text-royal mt-1"></i><div>Compra na <span class="text-ink font-semibold">reputação local</span></div></li>
+            </ul>
+
+            <div class="mt-8 pt-5 hair flex items-baseline gap-3">
+              <div class="stat-num text-royal text-5xl">Morno</div>
+              <div class="text-mute text-sm">temperatura do lead</div>
+            </div>
+          </div>
+
+          <!-- DIGITAL -->
+          <div class="card p-8 relative overflow-hidden border-lime/40 ring-1 ring-lime/20">
+            <div class="absolute right-5 top-5 eyebrow text-lime">Agora / Expansão nacional</div>
+            <i class="fa-solid fa-bolt-lightning text-lime text-3xl"></i>
+            <h3 class="h-2 font-display font-black mt-5 mb-1 text-ink">Lead digital (tráfego pago)</h3>
+            <div class="font-narrow text-mute uppercase tracking-widest text-xs mb-6">Impulso · Comparação · Pressa</div>
+
+            <ul class="space-y-4 text-graphite">
+              <li class="flex items-start gap-3"><i class="fa-solid fa-bolt text-lime mt-1"></i><div><span class="text-ink font-semibold">Não te conhece.</span> Viu um anúncio entre 50 outros</div></li>
+              <li class="flex items-start gap-3"><i class="fa-solid fa-bolt text-lime mt-1"></i><div>Espera resposta em <span class="text-ink font-semibold">minutos, não em dias</span></div></li>
+              <li class="flex items-start gap-3"><i class="fa-solid fa-bolt text-lime mt-1"></i><div>Está conversando com <span class="text-ink font-semibold">3 concorrentes</span> ao mesmo tempo</div></li>
+              <li class="flex items-start gap-3"><i class="fa-solid fa-bolt text-lime mt-1"></i><div>Decide por <span class="text-ink font-semibold">quem responder primeiro</span> com humanidade</div></li>
+            </ul>
+
+            <div class="mt-8 pt-5 hair flex items-baseline gap-3">
+              <div class="stat-num text-lime text-5xl">Frio</div>
+              <div class="text-mute text-sm">e <span class="text-alert font-semibold">imediatista</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 p-5 rounded-xl bg-ink text-white flex items-center gap-4">
+          <i class="fa-solid fa-triangle-exclamation text-lime text-xl"></i>
+          <div class="text-sm md:text-base">
+            <span class="font-semibold">O mesmo atendimento que funciona no presencial</span> — calmo, espaçado, esperando o cliente "decidir" — <span class="text-lime font-semibold">mata o lead digital antes do segundo dia.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SLIDE 03 — DADOS / SLA ============== -->
+    <section class="slide absolute inset-0 flex-col" data-slide="3">
+      <div class="px-8 md:px-16 py-10 md:py-12 slide-body flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="udot"></span>
+          <span class="eyebrow">03 · O Fator SLA · Harvard Business Review</span>
+        </div>
+        <h2 class="h-1 font-display font-black text-ink mb-3">A ciência por trás dos <span class="text-lime">5 minutos.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-8">
+          Estudos da <span class="text-ink font-semibold">Harvard Business Review</span> mostram: cada minuto a mais sem resposta é
+          uma venda escorrendo pelo ralo. Não é sobre estar disponível 24h. É sobre estar disponível <span class="text-ink font-semibold">nos primeiros minutos.</span>
+        </p>
+
+        <!-- Big numbers row -->
+        <div class="grid md:grid-cols-3 gap-4 mb-10">
+          <div class="card p-6">
+            <div class="eyebrow mb-3">HBR · Qualificação</div>
+            <div class="flex items-baseline gap-2">
+              <div class="stat-num text-lime text-6xl">21×</div>
+              <div class="text-mute font-mono text-xs">+391%</div>
+            </div>
+            <p class="text-graphite text-sm mt-3 leading-snug">Mais chances de qualificar o lead respondendo em <span class="text-ink font-semibold">até 5 min</span> vs. 30 min.</p>
+          </div>
+          <div class="card p-6">
+            <div class="eyebrow mb-3">Quem ganha a venda</div>
+            <div class="stat-num text-royal text-6xl">74%</div>
+            <p class="text-graphite text-sm mt-3 leading-snug">Dos compradores fecham com a <span class="text-ink font-semibold">primeira empresa</span> que fizer contato humanizado.</p>
+          </div>
+          <div class="card p-6 border-alert/30 ring-1 ring-alert/10">
+            <div class="eyebrow mb-3 !text-alert">Custo da demora</div>
+            <div class="flex items-baseline gap-2">
+              <div class="stat-num text-alert text-6xl">10×</div>
+              <div class="text-mute font-mono text-xs">−900%</div>
+            </div>
+            <p class="text-graphite text-sm mt-3 leading-snug">Menos chance de <span class="text-ink font-semibold">conseguir contato útil</span> depois de 1 hora.</p>
+          </div>
+        </div>
+
+        <!-- Chart: conversion decay -->
+        <div class="card p-7">
+          <div class="flex items-baseline justify-between mb-1">
+            <h3 class="font-display font-black text-ink text-xl">A queda brutal da conversão</h3>
+            <span class="eyebrow">Eixo Y · taxa relativa de qualificação</span>
+          </div>
+          <p class="text-mute text-sm mb-7">Cada barra representa a chance relativa de qualificar um lead conforme o tempo de resposta aumenta.</p>
+
+          <div class="space-y-4">
+            <!-- bar 1 -->
+            <div class="grid grid-cols-12 items-center gap-4">
+              <div class="col-span-2 md:col-span-2">
+                <div class="font-mono text-xs text-mute">RESPOSTA</div>
+                <div class="font-display font-black text-ink text-lg">1 min</div>
+              </div>
+              <div class="col-span-8 md:col-span-9">
+                <div class="h-9 rounded-md bg-soft relative overflow-hidden">
+                  <div class="bar-fill h-full rounded-md bg-lime relative" style="--w:100%">
+                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-white font-display font-bold text-sm">PICO</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-2 md:col-span-1 text-right">
+                <span class="font-mono text-xs text-lime font-bold">100%</span>
+              </div>
+            </div>
+
+            <!-- bar 2 -->
+            <div class="grid grid-cols-12 items-center gap-4">
+              <div class="col-span-2"><div class="font-mono text-xs text-mute">RESPOSTA</div><div class="font-display font-black text-ink text-lg">5 min</div></div>
+              <div class="col-span-8 md:col-span-9">
+                <div class="h-9 rounded-md bg-soft overflow-hidden">
+                  <div class="bar-fill h-full rounded-md bg-lime/90" style="--w:92%"></div>
+                </div>
+              </div>
+              <div class="col-span-2 md:col-span-1 text-right"><span class="font-mono text-xs text-graphite font-bold">~92%</span></div>
+            </div>
+
+            <!-- bar 3 -->
+            <div class="grid grid-cols-12 items-center gap-4">
+              <div class="col-span-2"><div class="font-mono text-xs text-mute">RESPOSTA</div><div class="font-display font-black text-ink text-lg">10 min</div></div>
+              <div class="col-span-8 md:col-span-9">
+                <div class="h-9 rounded-md bg-soft overflow-hidden">
+                  <div class="bar-fill h-full rounded-md bg-royal" style="--w:55%"></div>
+                </div>
+              </div>
+              <div class="col-span-2 md:col-span-1 text-right"><span class="font-mono text-xs text-graphite font-bold">~55%</span></div>
+            </div>
+
+            <!-- bar 4 -->
+            <div class="grid grid-cols-12 items-center gap-4">
+              <div class="col-span-2"><div class="font-mono text-xs text-mute">RESPOSTA</div><div class="font-display font-black text-ink text-lg">30 min</div></div>
+              <div class="col-span-8 md:col-span-9">
+                <div class="h-9 rounded-md bg-soft overflow-hidden">
+                  <div class="bar-fill h-full rounded-md bg-royal/70" style="--w:21%"></div>
+                </div>
+              </div>
+              <div class="col-span-2 md:col-span-1 text-right"><span class="font-mono text-xs text-graphite font-bold">~5%</span></div>
+            </div>
+
+            <!-- bar 5 -->
+            <div class="grid grid-cols-12 items-center gap-4">
+              <div class="col-span-2"><div class="font-mono text-xs text-mute">RESPOSTA</div><div class="font-display font-black text-alert text-lg">1 hora</div></div>
+              <div class="col-span-8 md:col-span-9">
+                <div class="h-9 rounded-md bg-soft overflow-hidden">
+                  <div class="bar-fill h-full rounded-md bg-alert/80" style="--w:8%"></div>
+                </div>
+              </div>
+              <div class="col-span-2 md:col-span-1 text-right"><span class="font-mono text-xs text-alert font-bold">~1%</span></div>
+            </div>
+
+            <!-- bar 6 -->
+            <div class="grid grid-cols-12 items-center gap-4">
+              <div class="col-span-2"><div class="font-mono text-xs text-mute">RESPOSTA</div><div class="font-display font-black text-alert text-lg">24 h+</div></div>
+              <div class="col-span-8 md:col-span-9">
+                <div class="h-9 rounded-md bg-soft overflow-hidden">
+                  <div class="bar-fill h-full rounded-md bg-alert" style="--w:3%"></div>
+                </div>
+              </div>
+              <div class="col-span-2 md:col-span-1 text-right"><span class="font-mono text-xs text-alert font-bold">Lead morto</span></div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-6 hair flex items-start gap-3">
+            <i class="fa-solid fa-quote-left text-lime"></i>
+            <p class="text-graphite text-sm italic">
+              "Empresas que respondem em menos de 5 minutos têm <span class="text-ink font-semibold not-italic">21 vezes mais probabilidade</span> de qualificar um lead do que aquelas que demoram 30 minutos." <span class="text-mute not-italic">— HBR, "The Short Life of Online Sales Leads"</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SLIDE 04 — POSTURA ATIVA ============== -->
+    <section class="slide absolute inset-0 flex-col" data-slide="4">
+      <div class="px-8 md:px-16 py-10 md:py-12 slide-body flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="udot"></span>
+          <span class="eyebrow">04 · Postura</span>
+        </div>
+        <h2 class="h-1 font-display font-black text-ink mb-3">Pare de ser <span class="line-through text-mute">tirador de pedido.</span><br/>Vire <span class="text-lime">consultor.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+          Mandar a tabela de preços em PDF é o jeito mais educado, mais rápido e mais elegante de <span class="text-ink font-semibold">perder a venda.</span>
+          O cliente do online não comprou preço — ele veio buscar um <span class="text-ink font-semibold">caminho</span>.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- WRONG -->
+          <div class="card p-8 border-alert/30">
+            <div class="flex items-center justify-between mb-5">
+              <div class="font-narrow uppercase tracking-widest text-xs text-alert">Atendimento passivo</div>
+              <i class="fa-solid fa-circle-xmark text-alert text-2xl"></i>
+            </div>
+            <h3 class="h-2 font-display font-black text-ink mb-4">Tirador de pedido</h3>
+            <div class="space-y-3 text-sm">
+              <div class="bg-soft rounded-lg p-3 text-graphite">"Bom dia! Aqui está nossa <span class="font-semibold text-ink">tabela de preços em PDF</span>."</div>
+              <div class="bg-soft rounded-lg p-3 text-graphite">"Qualquer dúvida estou à disposição."</div>
+              <div class="bg-soft rounded-lg p-3 text-graphite">"Vou aguardar seu retorno." <i class="fa-solid fa-skull-crossbones text-alert ml-2"></i></div>
+            </div>
+            <ul class="mt-6 space-y-2 text-graphite text-sm">
+              <li class="flex gap-2"><i class="fa-solid fa-xmark text-alert mt-1"></i> Empurra o trabalho de decisão para o lead</li>
+              <li class="flex gap-2"><i class="fa-solid fa-xmark text-alert mt-1"></i> Comoditiza a Maximize ao preço</li>
+              <li class="flex gap-2"><i class="fa-solid fa-xmark text-alert mt-1"></i> Não cria nenhum vínculo</li>
+            </ul>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="card p-8 border-lime/40 ring-1 ring-lime/20">
+            <div class="flex items-center justify-between mb-5">
+              <div class="font-narrow uppercase tracking-widest text-xs text-lime">Venda ativa</div>
+              <i class="fa-solid fa-circle-check text-lime text-2xl"></i>
+            </div>
+            <h3 class="h-2 font-display font-black text-ink mb-4">Consultor de performance</h3>
+            <div class="space-y-3 text-sm">
+              <div class="bg-soft rounded-lg p-3 text-graphite">"Oi <span class="text-ink font-semibold">João</span>! Vi que você se interessou pelo plano. Antes de qualquer coisa: qual é a sua <span class="font-semibold text-ink">próxima prova</span>?"</div>
+              <div class="bg-soft rounded-lg p-3 text-graphite">"Você já treina hoje? Como tá a sua rotina?"</div>
+              <div class="bg-soft rounded-lg p-3 text-graphite">"Com base no que me contou, o plano X faz <span class="text-ink font-semibold">muito mais sentido</span> que o Y. Te explico aqui em 2 minutos."</div>
+            </div>
+            <ul class="mt-6 space-y-2 text-graphite text-sm">
+              <li class="flex gap-2"><i class="fa-solid fa-check text-lime mt-1"></i> Investiga antes de oferecer</li>
+              <li class="flex gap-2"><i class="fa-solid fa-check text-lime mt-1"></i> Personaliza a recomendação</li>
+              <li class="flex gap-2"><i class="fa-solid fa-check text-lime mt-1"></i> Constrói autoridade no caminho</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-8 p-5 rounded-xl bg-lime/10 border border-lime/30 flex items-start gap-4">
+          <i class="fa-solid fa-lightbulb text-lime text-xl mt-1"></i>
+          <div class="text-graphite">
+            <span class="text-ink font-semibold">A regra do consultor:</span> nenhum preço é enviado antes de você entender a meta, a dor e o contexto do atleta. Preço sem contexto vira leilão.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SLIDE 05 — 3 LIVROS ============== -->
+    <section class="slide absolute inset-0 flex-col" data-slide="5">
+      <div class="px-8 md:px-16 py-10 md:py-12 slide-body flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="udot"></span>
+          <span class="eyebrow">05 · Bibliografia obrigatória</span>
+        </div>
+        <h2 class="h-1 font-display font-black text-ink mb-3">Os 3 livros de <span class="text-lime">cabeceira</span> do time.</h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+          Não é leitura motivacional. É <span class="text-ink font-semibold">arsenal técnico</span>.
+          Cada um resolve uma parte específica do funil: <span class="text-ink font-semibold">conexão</span>, <span class="text-ink font-semibold">investigação</span> e <span class="text-ink font-semibold">conversão</span>.
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Book 1 -->
+          <div class="card p-7 relative overflow-hidden">
+            <div class="absolute -right-6 -top-6 w-28 h-28 rounded-full bg-royal/10"></div>
+            <div class="relative">
+              <div class="eyebrow mb-2">Pilar 01</div>
+              <div class="aspect-[3/4] max-w-[140px] rounded-md bg-gradient-to-br from-royal to-ink mb-5 grid place-items-center text-white p-4 shadow-lg">
+                <div class="text-center">
+                  <i class="fa-solid fa-handshake text-2xl mb-2"></i>
+                  <div class="font-display font-black text-sm leading-tight">Como Fazer Amigos e Influenciar Pessoas</div>
+                </div>
+              </div>
+              <h3 class="font-display font-black text-ink text-xl mb-1">Dale Carnegie</h3>
+              <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-4">Conexão · Rapport</div>
+              <p class="text-graphite text-sm leading-snug">Humanizar a conversa fria do WhatsApp. Transformar texto em <span class="text-ink font-semibold">presença.</span></p>
+            </div>
+          </div>
+
+          <!-- Book 2 -->
+          <div class="card p-7 relative overflow-hidden border-lime/40 ring-1 ring-lime/20">
+            <div class="absolute -right-6 -top-6 w-28 h-28 rounded-full bg-lime/15"></div>
+            <div class="relative">
+              <div class="eyebrow !text-lime mb-2">Pilar 02</div>
+              <div class="aspect-[3/4] max-w-[140px] rounded-md bg-gradient-to-br from-lime to-emerald-700 mb-5 grid place-items-center text-white p-4 shadow-lg">
+                <div class="text-center">
+                  <i class="fa-solid fa-magnifying-glass-chart text-2xl mb-2"></i>
+                  <div class="font-display font-black text-sm leading-tight">SPIN Selling</div>
+                </div>
+              </div>
+              <h3 class="font-display font-black text-ink text-xl mb-1">Neil Rackham</h3>
+              <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-4">Investigação · Diagnóstico</div>
+              <p class="text-graphite text-sm leading-snug">A metodologia de perguntas que <span class="text-ink font-semibold">vende sem empurrar</span>. O atleta se convence sozinho.</p>
+            </div>
+          </div>
+
+          <!-- Book 3 -->
+          <div class="card p-7 relative overflow-hidden">
+            <div class="absolute -right-6 -top-6 w-28 h-28 rounded-full bg-ink/10"></div>
+            <div class="relative">
+              <div class="eyebrow mb-2">Pilar 03</div>
+              <div class="aspect-[3/4] max-w-[140px] rounded-md bg-gradient-to-br from-ink to-graphite mb-5 grid place-items-center text-white p-4 shadow-lg">
+                <div class="text-center">
+                  <i class="fa-solid fa-bullseye text-2xl mb-2"></i>
+                  <div class="font-display font-black text-sm leading-tight">Armas da Persuasão</div>
+                </div>
+              </div>
+              <h3 class="font-display font-black text-ink text-xl mb-1">Robert Cialdini</h3>
+              <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-4">Conversão · Gatilhos</div>
+              <p class="text-graphite text-sm leading-snug">Os 6 gatilhos psicológicos que movem decisão. <span class="text-ink font-semibold">Ética e eficácia</span> no mesmo pacote.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 grid grid-cols-3 gap-0 border border-line rounded-xl overflow-hidden">
+          <div class="p-5 bg-white text-center">
+            <div class="eyebrow !text-royal mb-1">Carnegie</div>
+            <div class="font-display font-bold text-ink">Antes do diagnóstico</div>
+          </div>
+          <div class="p-5 bg-soft text-center border-x border-line">
+            <div class="eyebrow !text-lime mb-1">SPIN</div>
+            <div class="font-display font-bold text-ink">Durante o diagnóstico</div>
+          </div>
+          <div class="p-5 bg-white text-center">
+            <div class="eyebrow mb-1">Cialdini</div>
+            <div class="font-display font-bold text-ink">No fechamento</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SLIDE 06 — CARNEGIE / RAPPORT ============== -->
+    <section class="slide absolute inset-0 flex-col" data-slide="6">
+      <div class="px-8 md:px-16 py-10 md:py-12 slide-body flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="udot"></span>
+          <span class="eyebrow">06 · Técnica 1 · Carnegie</span>
+        </div>
+        <h2 class="h-1 font-display font-black text-ink mb-3">Aquecer o que é <span class="text-lime">frio.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+          O WhatsApp tem uma maldição: <span class="text-ink font-semibold">sem tom de voz, tudo soa robótico.</span>
+          Carnegie é a vacina contra isso. Quatro movimentos simples — feitos em <span class="text-ink font-semibold">toda</span> conversa.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div class="card p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-lg bg-royal/10 grid place-items-center"><i class="fa-solid fa-signature text-royal"></i></div>
+              <div class="font-display font-black text-ink text-lg">1 · Use o nome</div>
+            </div>
+            <p class="text-graphite text-sm mb-3">"O nome de uma pessoa é o som mais doce em qualquer idioma" — Carnegie. Use no início, no meio e no final.</p>
+            <div class="bg-soft rounded-lg p-3 text-sm text-graphite font-mono">"<span class="text-lime font-semibold">João</span>, posso te chamar assim? Olha, <span class="text-lime font-semibold">João</span>, sobre seu treino…"</div>
+          </div>
+
+          <div class="card p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-lg bg-lime/10 grid place-items-center"><i class="fa-solid fa-arrows-left-right text-lime"></i></div>
+              <div class="font-display font-black text-ink text-lg">2 · Espelhamento</div>
+            </div>
+            <p class="text-graphite text-sm mb-3">Replique o tom e o ritmo do lead. Se ele usa emoji, use emoji. Se ele é formal, suba o registro.</p>
+            <div class="bg-soft rounded-lg p-3 text-sm text-graphite font-mono">Lead: "Bora correr! 🏃" → Você: "Boraaa! 🏃‍♂️ Conta a meta!"</div>
+          </div>
+
+          <div class="card p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-lg bg-ink/10 grid place-items-center"><i class="fa-solid fa-comments text-ink"></i></div>
+              <div class="font-display font-black text-ink text-lg">3 · Perguntas abertas</div>
+            </div>
+            <p class="text-graphite text-sm mb-3">Substitua "tudo bem?" por algo que faça o lead <span class="text-ink font-semibold">falar de si.</span></p>
+            <div class="bg-soft rounded-lg p-3 text-sm text-graphite font-mono">"Qual a sua meta no esporte <span class="text-lime font-semibold">esse ano?</span>"</div>
+          </div>
+
+          <div class="card p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-lg bg-lime/10 grid place-items-center"><i class="fa-solid fa-ear-listen text-lime"></i></div>
+              <div class="font-display font-black text-ink text-lg">4 · Interesse genuíno</div>
+            </div>
+            <p class="text-graphite text-sm mb-3">Comente o que ele disse antes de avançar. Mostre que <span class="text-ink font-semibold">você leu</span>, não só respondeu.</p>
+            <div class="bg-soft rounded-lg p-3 text-sm text-graphite font-mono">"Triathlon olímpico em <span class="text-lime font-semibold">8 meses</span>?! Sensacional. Isso muda muito a sua periodização."</div>
+          </div>
+        </div>
+
+        <!-- Mini chat -->
+        <div class="card p-6">
+          <div class="eyebrow mb-4">Exemplo · WhatsApp aquecido</div>
+          <div class="space-y-3 max-w-xl">
+            <div class="flex"><div class="bg-soft text-graphite text-sm px-4 py-2 rounded-2xl rounded-bl-sm max-w-[80%]">"Oi, quanto custa o plano de corrida?"</div></div>
+            <div class="flex justify-end"><div class="bg-lime text-white text-sm px-4 py-2 rounded-2xl rounded-br-sm max-w-[85%]">"Oi! Sou o Lucas da Maximize 👋 Antes de te passar valor — me conta seu nome e qual é o sonho que tá te trazendo pra correr agora?"</div></div>
+            <div class="flex"><div class="bg-soft text-graphite text-sm px-4 py-2 rounded-2xl rounded-bl-sm max-w-[80%]">"João. Quero fazer minha primeira meia-maratona no fim do ano."</div></div>
+            <div class="flex justify-end"><div class="bg-lime text-white text-sm px-4 py-2 rounded-2xl rounded-br-sm max-w-[85%]">"João, primeira meia é um <span class="font-semibold">marco</span>. Treina hoje sozinho ou com grupo? Quero entender pra te indicar o caminho certo, não o mais caro 😉"</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SLIDE 07 — SPIN SELLING ============== -->
+    <section class="slide absolute inset-0 flex-col" data-slide="7">
+      <div class="px-8 md:px-16 py-10 md:py-12 slide-body flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="udot"></span>
+          <span class="eyebrow">07 · Técnica 2 · SPIN Selling</span>
+        </div>
+        <h2 class="h-1 font-display font-black text-ink mb-3">O atleta se vende <span class="text-lime">sozinho.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-8">
+          SPIN é uma escada de perguntas. Você sobe um degrau de cada vez e, no topo, o lead <span class="text-ink font-semibold">já vendeu o plano pra si mesmo.</span>
+          Aplicado ao Triathlon e Corrida:
+        </p>
+
+        <div class="grid md:grid-cols-4 gap-3">
+          <!-- S -->
+          <div class="card p-5 relative">
+            <div class="absolute right-4 top-4 stat-num text-soft text-5xl">S</div>
+            <div class="eyebrow mb-2">Situação</div>
+            <div class="font-display font-black text-ink mb-2">Onde ele está?</div>
+            <p class="text-graphite text-sm mb-3">Diagnóstico do estado atual. Sem julgamento.</p>
+            <div class="hair pt-3 space-y-2 text-sm text-graphite">
+              <div class="flex gap-2"><i class="fa-solid fa-quote-left text-mute mt-1 text-xs"></i> "Você treina há quanto tempo?"</div>
+              <div class="flex gap-2"><i class="fa-solid fa-quote-left text-mute mt-1 text-xs"></i> "Faz com algum acompanhamento hoje?"</div>
+              <div class="flex gap-2"><i class="fa-solid fa-quote-left text-mute mt-1 text-xs"></i> "Quantos dias por semana?"</div>
+            </div>
+          </div>
+
+          <!-- P -->
+          <div class="card p-5 relative">
+            <div class="absolute right-4 top-4 stat-num text-soft text-5xl">P</div>
+            <div class="eyebrow mb-2">Problema</div>
+            <div class="font-display font-black text-ink mb-2">O que dói?</div>
+            <p class="text-graphite text-sm mb-3">Levanta as dores reais — mesmo que ele não tenha verbalizado.</p>
+            <div class="hair pt-3 space-y-2 text-sm text-graphite">
+              <div class="flex gap-2"><i class="fa-solid fa-quote-left text-mute mt-1 text-xs"></i> "Sente que evolui no ritmo que gostaria?"</div>
+              <div class="flex gap-2"><i class="fa-solid fa-quote-left text-mute mt-1 text-xs"></i> "Já se lesionou treinando sozinho?"</div>
+              <div class="flex gap-2"><i class="fa-solid fa-quote-left text-mute mt-1 text-xs"></i> "Tem disciplina pra seguir planilha?"</div>
+            </div>
+          </div>
+
+          <!-- I -->
+          <div class="card p-5 relative border-lime/40 ring-1 ring-lime/20">
+            <div class="absolute right-4 top-4 stat-num text-lime/20 text-5xl">I</div>
+            <div class="eyebrow !text-lime mb-2">Implicação</div>
+            <div class="font-display font-black text-ink mb-2">O custo do problema</div>
+            <p class="text-graphite text-sm mb-3">Aqui a venda acontece. Conecte a dor ao <span class="text-ink font-semibold">resultado.</span></p>
+            <div class="hair pt-3 space-y-2 text-sm text-graphite">
+              <div class="flex gap-2"><i class="fa-solid fa-quote-left text-lime mt-1 text-xs"></i> "Se mantiver esse ritmo, vai chegar onde queria em <span class="text-ink font-semibold">8 meses?</span>"</div>
+              <div class="flex gap-2"><i class="fa-solid fa-quote-left text-lime mt-1 text-xs"></i> "Quanto custa uma lesão que tira você 3 meses?"</div>
+              <div class="flex gap-2"><i class="fa-solid fa-quote-left text-lime mt-1 text-xs"></i> "E se chegar na prova despreparado?"</div>
+            </div>
+          </div>
+
+          <!-- N -->
+          <div class="card p-5 relative">
+            <div class="absolute right-4 top-4 stat-num text-soft text-5xl">N</div>
+            <div class="eyebrow mb-2">Necessidade</div>
+            <div class="font-display font-black text-ink mb-2">A solução desejada</div>
+            <p class="text-graphite text-sm mb-3">Faça o atleta <span class="text-ink font-semibold">descrever a própria solução.</span></p>
+            <div class="hair pt-3 space-y-2 text-sm text-graphite">
+              <div class="flex gap-2"><i class="fa-solid fa-quote-left text-mute mt-1 text-xs"></i> "Como seria ter alguém te guiando 7 dias por semana?"</div>
+              <div class="flex gap-2"><i class="fa-solid fa-quote-left text-mute mt-1 text-xs"></i> "O que mudaria com plano periodizado?"</div>
+              <div class="flex gap-2"><i class="fa-solid fa-quote-left text-mute mt-1 text-xs"></i> "Vale chegar bem na sua primeira meia?"</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Script flow -->
+        <div class="mt-10 card p-6">
+          <div class="eyebrow mb-4">Fluxo da conversa · do "S" ao "N"</div>
+          <div class="grid md:grid-cols-4 gap-3 items-stretch text-sm">
+            <div class="bg-soft rounded-lg p-4">
+              <div class="font-mono text-xs text-mute mb-1">S</div>
+              <div class="text-graphite">"João, hoje você treina <span class="font-semibold text-ink">3× por semana</span> sozinho, certo?"</div>
+            </div>
+            <div class="bg-soft rounded-lg p-4">
+              <div class="font-mono text-xs text-mute mb-1">P</div>
+              <div class="text-graphite">"E você sente que <span class="font-semibold text-ink">tá evoluindo</span> no ritmo que precisa pra meia?"</div>
+            </div>
+            <div class="bg-lime/15 rounded-lg p-4 border border-lime/30">
+              <div class="font-mono text-xs text-lime mb-1">I</div>
+              <div class="text-graphite">"Se continuar assim, faltam 6 meses. <span class="font-semibold text-ink">Dá pra arriscar?</span>"</div>
+            </div>
+            <div class="bg-soft rounded-lg p-4">
+              <div class="font-mono text-xs text-mute mb-1">N</div>
+              <div class="text-graphite">"Faria diferença ter um <span class="font-semibold text-ink">treinador acompanhando</span> sua semana?"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SLIDE 08 — CIALDINI ============== -->
+    <section class="slide absolute inset-0 flex-col" data-slide="8">
+      <div class="px-8 md:px-16 py-10 md:py-12 slide-body flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="udot"></span>
+          <span class="eyebrow">08 · Técnica 3 · Cialdini</span>
+        </div>
+        <h2 class="h-1 font-display font-black text-ink mb-3">Os <span class="text-lime">3 gatilhos</span> que a Maximize tem de sobra.</h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+          Você não precisa inventar autoridade — a Maximize <span class="text-ink font-semibold">tem.</span>
+          O trabalho é <span class="text-ink font-semibold">trazer essa força para a conversa</span>, naturalmente, no momento certo.
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-5">
+          <!-- Authority -->
+          <div class="card p-7 relative overflow-hidden">
+            <div class="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-royal/10"></div>
+            <i class="fa-solid fa-medal text-royal text-3xl relative"></i>
+            <h3 class="font-display font-black text-ink text-xl mt-4 mb-1">Autoridade</h3>
+            <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-5">Quem fala importa</div>
+            <p class="text-graphite text-sm mb-5">Referência consolidada em Triathlon, Corrida, Ciclismo e Natação <span class="text-ink font-semibold">no Espírito Santo.</span></p>
+            <div class="bg-soft rounded-lg p-3 text-sm italic text-graphite">"A gente <span class="text-ink not-italic font-semibold">forma triatletas há mais de uma década</span> aqui em Vitória. Esse plano é o mesmo que aplica nos nossos atletas de pódio."</div>
+          </div>
+
+          <!-- Social proof -->
+          <div class="card p-7 relative overflow-hidden border-lime/40 ring-1 ring-lime/20">
+            <div class="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-lime/15"></div>
+            <i class="fa-solid fa-users-line text-lime text-3xl relative"></i>
+            <h3 class="font-display font-black text-ink text-xl mt-4 mb-1">Prova social</h3>
+            <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-5">Quem já fez convence</div>
+            <p class="text-graphite text-sm mb-5">Centenas de atletas <span class="text-ink font-semibold">cruzando linhas de chegada</span> com a camisa Maximize. Use isso.</p>
+            <div class="bg-soft rounded-lg p-3 text-sm italic text-graphite">"Semana passada uma aluna <span class="text-ink not-italic font-semibold">na sua mesma situação</span> fechou os 21k em 1h58. Posso te mostrar o caso?"</div>
+          </div>
+
+          <!-- Scarcity -->
+          <div class="card p-7 relative overflow-hidden">
+            <div class="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-ink/10"></div>
+            <i class="fa-solid fa-hourglass-half text-ink text-3xl relative"></i>
+            <h3 class="font-display font-black text-ink text-xl mt-4 mb-1">Escassez / Urgência</h3>
+            <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-5">O que é raro vale mais</div>
+            <p class="text-graphite text-sm mb-5">Acompanhamento próximo significa <span class="text-ink font-semibold">vagas limitadas</span> — não é discurso, é verdade.</p>
+            <div class="bg-soft rounded-lg p-3 text-sm italic text-graphite">"O plano com acompanhamento próximo tem <span class="text-ink not-italic font-semibold">vagas limitadas por treinador</span>. Hoje temos 2 abertas. Quer reservar a sua?"</div>
+          </div>
+        </div>
+
+        <div class="mt-10 grid md:grid-cols-3 gap-0 card overflow-hidden">
+          <div class="p-6 text-center">
+            <div class="stat-num text-royal text-4xl mb-1">10+</div>
+            <div class="eyebrow">Anos no mercado capixaba</div>
+          </div>
+          <div class="p-6 text-center border-x border-line bg-soft">
+            <div class="stat-num text-lime text-4xl mb-1">500+</div>
+            <div class="eyebrow">Atletas formados em provas</div>
+          </div>
+          <div class="p-6 text-center">
+            <div class="stat-num text-ink text-4xl mb-1">4</div>
+            <div class="eyebrow">Modalidades · Tri completo</div>
+          </div>
+        </div>
+        <p class="text-xs text-mute mt-3">* Números ilustrativos para uso em treinamento. Ajustar conforme dados oficiais antes da apresentação ao lead.</p>
+      </div>
+    </section>
+
+    <!-- ============== SLIDE 09 — KOMMO CRM ============== -->
+    <section class="slide absolute inset-0 flex-col" data-slide="9">
+      <div class="px-8 md:px-16 py-10 md:py-12 slide-body flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="udot"></span>
+          <span class="eyebrow">09 · Processo · Kommo CRM</span>
+        </div>
+        <h2 class="h-1 font-display font-black text-ink mb-3">Se não está no CRM, <span class="text-alert">não existe.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+          Memória trai. WhatsApp some. Anotação em caderno se perde. <span class="text-ink font-semibold">O Kommo é a memória oficial do time comercial.</span>
+          Cada lead, cada etapa, cada tarefa futura — sempre lá.
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-5 mb-10">
+          <div class="card p-6">
+            <div class="w-10 h-10 rounded-lg bg-royal/10 grid place-items-center mb-3"><span class="font-display font-black text-royal">01</span></div>
+            <div class="font-display font-black text-ink mb-1">Todo lead cadastrado</div>
+            <p class="text-graphite text-sm">Entrou pelo anúncio, pela landing, pelo DM? Vai pro Kommo <span class="text-ink font-semibold">em até 5 min.</span></p>
+          </div>
+          <div class="card p-6 border-lime/40 ring-1 ring-lime/20">
+            <div class="w-10 h-10 rounded-lg bg-lime/10 grid place-items-center mb-3"><span class="font-display font-black text-lime">02</span></div>
+            <div class="font-display font-black text-ink mb-1">Toda etapa atualizada</div>
+            <p class="text-graphite text-sm">Mudou de etapa do funil? Arrasta. <span class="text-ink font-semibold">O funil conta a história do lead.</span></p>
+          </div>
+          <div class="card p-6">
+            <div class="w-10 h-10 rounded-lg bg-ink/10 grid place-items-center mb-3"><span class="font-display font-black text-ink">03</span></div>
+            <div class="font-display font-black text-ink mb-1">Toda interação anotada</div>
+            <p class="text-graphite text-sm">Áudio enviado, ligação feita, objeção ouvida — <span class="text-ink font-semibold">tudo no card.</span></p>
+          </div>
+        </div>
+
+        <!-- Funnel pipeline -->
+        <div class="card p-7">
+          <div class="flex items-baseline justify-between mb-5">
+            <h3 class="font-display font-black text-ink text-xl">Pipeline visual do Kommo</h3>
+            <span class="eyebrow">Cadência obrigatória</span>
+          </div>
+          <div class="grid grid-cols-6 gap-2">
+            <div class="bg-soft rounded-lg p-3 text-center">
+              <div class="text-[10px] font-mono text-mute mb-1">ETAPA 1</div>
+              <div class="font-display font-bold text-ink text-sm">Novo lead</div>
+              <div class="text-[10px] text-mute mt-1">Resposta em ≤ 15 min</div>
+            </div>
+            <div class="bg-soft rounded-lg p-3 text-center">
+              <div class="text-[10px] font-mono text-mute mb-1">ETAPA 2</div>
+              <div class="font-display font-bold text-ink text-sm">Contato feito</div>
+              <div class="text-[10px] text-mute mt-1">Rapport iniciado</div>
+            </div>
+            <div class="bg-soft rounded-lg p-3 text-center">
+              <div class="text-[10px] font-mono text-mute mb-1">ETAPA 3</div>
+              <div class="font-display font-bold text-ink text-sm">Em diagnóstico</div>
+              <div class="text-[10px] text-mute mt-1">SPIN aplicado</div>
+            </div>
+            <div class="bg-lime/15 border border-lime/30 rounded-lg p-3 text-center">
+              <div class="text-[10px] font-mono text-lime mb-1">ETAPA 4</div>
+              <div class="font-display font-bold text-ink text-sm">Proposta</div>
+              <div class="text-[10px] text-mute mt-1">Plano apresentado</div>
+            </div>
+            <div class="bg-lime/15 border border-lime/30 rounded-lg p-3 text-center">
+              <div class="text-[10px] font-mono text-lime mb-1">ETAPA 5</div>
+              <div class="font-display font-bold text-ink text-sm">Negociação</div>
+              <div class="text-[10px] text-mute mt-1">Quebra de objeções</div>
+            </div>
+            <div class="bg-ink text-white rounded-lg p-3 text-center">
+              <div class="text-[10px] font-mono text-white/60 mb-1">ETAPA 6</div>
+              <div class="font-display font-bold text-sm">Fechado</div>
+              <div class="text-[10px] text-white/70 mt-1">🏁</div>
+            </div>
+          </div>
+
+          <div class="mt-6 p-4 rounded-lg bg-ink/95 text-white flex items-start gap-3">
+            <i class="fa-solid fa-circle-exclamation text-lime mt-1"></i>
+            <div class="text-sm">
+              <span class="font-semibold">Regra de ouro:</span> nenhum lead pode estar no CRM <span class="text-lime font-semibold">sem uma tarefa agendada para o futuro.</span>
+              Card sem tarefa = lead esquecido = receita perdida.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SLIDE 10 — HIERARQUIA CONTATOS ============== -->
+    <section class="slide absolute inset-0 flex-col" data-slide="10">
+      <div class="px-8 md:px-16 py-10 md:py-12 slide-body flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="udot"></span>
+          <span class="eyebrow">10 · Esforço Comercial</span>
+        </div>
+        <h2 class="h-1 font-display font-black text-ink mb-3">A escada da <span class="text-lime">persistência inteligente.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+          Lead que não responde não é lead perdido — é lead <span class="text-ink font-semibold">não trabalhado.</span>
+          Sobe um degrau de cada vez, com criatividade. Cada degrau gera <span class="text-ink font-semibold">mais valor</span> que o anterior.
+        </p>
+
+        <!-- Ladder -->
+        <div class="grid md:grid-cols-3 gap-4 mb-8">
+          <div class="card p-6 relative">
+            <div class="absolute -left-3 top-6 w-7 h-7 rounded-full bg-ink text-white grid place-items-center font-display font-black text-sm">1</div>
+            <i class="fa-brands fa-whatsapp text-lime text-3xl mb-3"></i>
+            <h3 class="font-display font-black text-ink text-lg mb-1">Mensagem WhatsApp</h3>
+            <div class="eyebrow mb-3">Custo · Baixo</div>
+            <p class="text-graphite text-sm">Curta, com nome, sem PDF. Pergunta aberta no fim. <span class="text-ink font-semibold">Sempre.</span></p>
+            <div class="hair mt-4 pt-3 text-xs text-mute font-mono">⏱ janela de 15 min</div>
+          </div>
+
+          <div class="card p-6 relative border-lime/40 ring-1 ring-lime/20">
+            <div class="absolute -left-3 top-6 w-7 h-7 rounded-full bg-lime text-white grid place-items-center font-display font-black text-sm">2</div>
+            <i class="fa-solid fa-microphone-lines text-lime text-3xl mb-3"></i>
+            <h3 class="font-display font-black text-ink text-lg mb-1">Áudio personalizado</h3>
+            <div class="eyebrow mb-3">~45 segundos</div>
+            <p class="text-graphite text-sm">Use o nome. Gere <span class="text-ink font-semibold">valor</span>: uma dica de treino, uma referência da prova dele.</p>
+            <div class="hair mt-4 pt-3 text-xs text-mute font-mono">⏱ não respondeu em 24h?</div>
+          </div>
+
+          <div class="card p-6 relative">
+            <div class="absolute -left-3 top-6 w-7 h-7 rounded-full bg-royal text-white grid place-items-center font-display font-black text-sm">3</div>
+            <i class="fa-solid fa-phone-volume text-royal text-3xl mb-3"></i>
+            <h3 class="font-display font-black text-ink text-lg mb-1">Ligação consultiva</h3>
+            <div class="eyebrow mb-3">3 a 5 minutos</div>
+            <p class="text-graphite text-sm">Voz humana resolve em 3 min o que o WhatsApp não resolve em 3 dias. <span class="text-ink font-semibold">Sem medo.</span></p>
+            <div class="hair mt-4 pt-3 text-xs text-mute font-mono">⏱ próximo dia útil</div>
+          </div>
+        </div>
+
+        <!-- Golden rule -->
+        <div class="card p-7 bg-ink text-white relative overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-48 h-48 rounded-full bg-lime/15 blur-2xl"></div>
+          <div class="relative">
+            <div class="eyebrow !text-lime mb-3">Regra de ouro</div>
+            <h3 class="h-1 font-display font-black mb-3">No mínimo <span class="text-lime">5 tentativas</span><br/>em dias <span class="text-lime">alternados.</span></h3>
+            <p class="text-white/70 max-w-2xl">Antes do quinto contato, ninguém descarta lead. Atletas estão treinando, viajando, em reunião — e a maioria responde no <span class="text-white font-semibold">terceiro ou quarto toque.</span></p>
+
+            <div class="mt-6 grid grid-cols-5 gap-2">
+              <div class="text-center">
+                <div class="w-10 h-10 mx-auto rounded-full bg-lime grid place-items-center text-ink font-black">1</div>
+                <div class="text-xs text-white/60 mt-2 font-mono">D+0</div>
+                <div class="text-[10px] text-white/40">WhatsApp</div>
+              </div>
+              <div class="text-center">
+                <div class="w-10 h-10 mx-auto rounded-full bg-lime grid place-items-center text-ink font-black">2</div>
+                <div class="text-xs text-white/60 mt-2 font-mono">D+2</div>
+                <div class="text-[10px] text-white/40">Áudio</div>
+              </div>
+              <div class="text-center">
+                <div class="w-10 h-10 mx-auto rounded-full bg-lime grid place-items-center text-ink font-black">3</div>
+                <div class="text-xs text-white/60 mt-2 font-mono">D+4</div>
+                <div class="text-[10px] text-white/40">Ligação</div>
+              </div>
+              <div class="text-center">
+                <div class="w-10 h-10 mx-auto rounded-full bg-lime grid place-items-center text-ink font-black">4</div>
+                <div class="text-xs text-white/60 mt-2 font-mono">D+7</div>
+                <div class="text-[10px] text-white/40">WhatsApp + conteúdo</div>
+              </div>
+              <div class="text-center">
+                <div class="w-10 h-10 mx-auto rounded-full bg-lime grid place-items-center text-ink font-black">5</div>
+                <div class="text-xs text-white/60 mt-2 font-mono">D+10</div>
+                <div class="text-[10px] text-white/40">Ligação final</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SLIDE 11 — ACORDO SLA ============== -->
+    <section class="slide absolute inset-0 flex-col" data-slide="11">
+      <div class="px-8 md:px-16 py-10 md:py-12 slide-body flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="udot"></span>
+          <span class="eyebrow">11 · Acordo de Alta Performance</span>
+        </div>
+        <h2 class="h-1 font-display font-black text-ink mb-3">O contrato silencioso que <span class="text-lime">começa hoje.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+          Esses são os <span class="text-ink font-semibold">não-negociáveis</span> a partir desta sessão.
+          Métricas medidas, transparência total, time alinhado.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-5">
+          <div class="card p-6">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-lg bg-lime/10 grid place-items-center shrink-0"><i class="fa-solid fa-bolt text-lime text-lg"></i></div>
+              <div class="flex-1">
+                <div class="eyebrow mb-1">SLA · Primeira resposta</div>
+                <div class="font-display font-black text-ink text-2xl mb-2">≤ 15 minutos</div>
+                <p class="text-graphite text-sm mb-3">Para todo lead de tráfego pago em horário comercial. Sem exceções.</p>
+                <div class="meter"><span style="width:95%"></span></div>
+                <div class="text-xs text-mute mt-1 font-mono">Meta semanal: 95% dos leads dentro do SLA</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card p-6">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-lg bg-royal/10 grid place-items-center shrink-0"><i class="fa-solid fa-database text-royal text-lg"></i></div>
+              <div class="flex-1">
+                <div class="eyebrow mb-1">CRM · Uso obrigatório</div>
+                <div class="font-display font-black text-ink text-2xl mb-2">100% dos leads</div>
+                <p class="text-graphite text-sm mb-3">Todo lead no Kommo. Toda interação no card. Toda tarefa agendada.</p>
+                <div class="meter"><span style="width:100%;background:#2563eb"></span></div>
+                <div class="text-xs text-mute mt-1 font-mono">Auditoria semanal · zero tolerância a card sem tarefa</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card p-6">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-lg bg-ink/10 grid place-items-center shrink-0"><i class="fa-solid fa-list-check text-ink text-lg"></i></div>
+              <div class="flex-1">
+                <div class="eyebrow mb-1">Cadência · Esforço mínimo</div>
+                <div class="font-display font-black text-ink text-2xl mb-2">5 tentativas</div>
+                <p class="text-graphite text-sm mb-3">Em dias alternados, com canais variados (mensagem · áudio · ligação).</p>
+                <div class="meter"><span style="width:80%;background:#0f172a"></span></div>
+                <div class="text-xs text-mute mt-1 font-mono">Descartes só após esgotar a cadência</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card p-6 border-lime/40 ring-1 ring-lime/20">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-lg bg-lime/10 grid place-items-center shrink-0"><i class="fa-solid fa-chart-line text-lime text-lg"></i></div>
+              <div class="flex-1">
+                <div class="eyebrow !text-lime mb-1">Postura · Consultiva</div>
+                <div class="font-display font-black text-ink text-2xl mb-2">Sempre</div>
+                <p class="text-graphite text-sm mb-3">SPIN antes de preço. Cialdini no fechamento. Carnegie em toda mensagem.</p>
+                <div class="meter"><span style="width:100%;background:#10b981"></span></div>
+                <div class="text-xs text-mute mt-1 font-mono">Avaliação por escuta de gravações + revisão de chats</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 p-6 rounded-xl bg-ink text-white">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div class="eyebrow !text-lime mb-1">Próximos passos</div>
+              <div class="font-display font-black text-2xl">A partir desta sexta, o placar é público.</div>
+              <div class="text-white/70 text-sm mt-2">Dashboard semanal por atendente: SLA · Conversão · CRM compliance · Cadência completa.</div>
+            </div>
+            <div class="flex items-center gap-4 text-sm">
+              <div><div class="text-white/50 eyebrow !text-white/50">Início</div><div class="font-display font-bold">Imediato</div></div>
+              <div class="w-px h-8 bg-white/20"></div>
+              <div><div class="text-white/50 eyebrow !text-white/50">Revisão</div><div class="font-display font-bold">Toda 6ª</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SLIDE 12 — FECHAMENTO ============== -->
+    <section class="slide absolute inset-0 flex-col" data-slide="12">
+      <div class="flex-1 grid md:grid-cols-12 gap-0">
+        <div class="md:col-span-7 px-8 md:px-16 py-10 md:py-16 flex flex-col justify-center relative gridbg">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="udot"></span>
+            <span class="eyebrow">12 · Largada</span>
+          </div>
+          <h2 class="h-hero font-display font-black text-ink leading-[.92]">
+            A linha de<br/>chegada digital<br/>
+            <span class="text-lime">começa agora.</span>
+          </h2>
+          <p class="mt-8 text-graphite text-lg md:text-xl max-w-xl leading-snug">
+            Mesma marca. Mesmo amor pelo esporte. <span class="text-ink font-semibold">Um novo jeito de competir.</span><br/>
+            Cada lead que entra é um atleta querendo um caminho — e a Maximize é o melhor lugar do Brasil para atravessá-lo.
+          </p>
+
+          <div class="mt-10 flex flex-wrap items-center gap-3">
+            <span class="px-4 py-2 rounded-full bg-soft text-graphite text-sm font-narrow uppercase tracking-widest">Respeite o cronômetro</span>
+            <span class="px-4 py-2 rounded-full bg-soft text-graphite text-sm font-narrow uppercase tracking-widest">Investigue antes de propor</span>
+            <span class="px-4 py-2 rounded-full bg-lime text-white text-sm font-narrow uppercase tracking-widest font-semibold">Persista 5 vezes</span>
+          </div>
+        </div>
+
+        <div class="md:col-span-5 bg-ink text-white p-8 md:p-12 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-20 -top-20 w-72 h-72 rounded-full bg-lime/25 blur-3xl"></div>
+          <div class="absolute -left-10 bottom-10 w-48 h-48 rounded-full bg-royal/30 blur-3xl"></div>
+
+          <div class="relative">
+            <div class="ticks mb-8 opacity-50"></div>
+            <div class="font-narrow text-white/60 uppercase tracking-widest text-sm mb-3">Manifesto</div>
+            <div class="font-display font-black text-3xl md:text-4xl leading-tight">
+              "Velocidade<br/>+ humanidade<br/>= vitória."
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="grid grid-cols-3 gap-4 mb-8">
+              <div>
+                <div class="stat-num text-lime text-3xl">15<span class="text-base font-narrow text-white/60">min</span></div>
+                <div class="eyebrow !text-white/50 mt-1">SLA</div>
+              </div>
+              <div>
+                <div class="stat-num text-lime text-3xl">100<span class="text-base font-narrow text-white/60">%</span></div>
+                <div class="eyebrow !text-white/50 mt-1">CRM</div>
+              </div>
+              <div>
+                <div class="stat-num text-lime text-3xl">5<span class="text-base font-narrow text-white/60">×</span></div>
+                <div class="eyebrow !text-white/50 mt-1">Tentativas</div>
+              </div>
+            </div>
+            <div class="hair !border-white/10 pt-5">
+              <div class="font-narrow text-white/40 uppercase tracking-widest text-xs">Maximize Assessoria Esportiva</div>
+              <div class="font-display font-bold text-white mt-1">Vitória · ES · 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <footer class="border-t border-line bg-white px-6 md:px-10 py-3 flex items-center justify-between z-20">
+    <button id="prevBtn" class="navbtn flex items-center gap-2 px-4 py-2 rounded-lg border border-line text-graphite hover:bg-soft hover:text-ink">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span class="font-narrow uppercase tracking-widest text-xs">Anterior</span>
+    </button>
+
+    <div class="hidden md:block font-narrow uppercase tracking-widest text-xs text-mute" id="slideTitle">Capa</div>
+
+    <button id="nextBtn" class="navbtn flex items-center gap-2 px-5 py-2 rounded-lg bg-ink text-white hover:bg-lime">
+      <span class="font-narrow uppercase tracking-widest text-xs">Próximo</span>
+      <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </footer>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const slideNow = document.getElementById('slideNow');
+const slideTotal = document.getElementById('slideTotal');
+const slideTitle = document.getElementById('slideTitle');
+const progressDots = document.getElementById('progressDots');
+
+const titles = [
+  'Capa · Largada',
+  'A grande virada',
+  'Dados & SLA',
+  'Postura ativa',
+  '3 livros de cabeceira',
+  'Carnegie · Rapport',
+  'SPIN Selling',
+  'Cialdini · Gatilhos',
+  'Kommo CRM',
+  'Hierarquia de contatos',
+  'Acordo SLA',
+  'Linha de chegada'
+];
+
+let current = 0;
+slideTotal.textContent = String(total).padStart(2,'0');
+
+// Build progress dots
+for (let i = 0; i < total; i++) {
+  const d = document.createElement('button');
+  d.className = 'h-1 rounded-full transition-all flex-1 bg-line hover:bg-mute';
+  d.setAttribute('aria-label', 'Ir para slide ' + (i+1));
+  d.addEventListener('click', () => goTo(i));
+  progressDots.appendChild(d);
+}
+const dots = progressDots.children;
+
+function render() {
+  slides.forEach((s,i) => s.classList.toggle('active', i === current));
+  slideNow.textContent = String(current+1).padStart(2,'0');
+  slideTitle.textContent = titles[current] || '';
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].className = 'h-1 rounded-full transition-all flex-1 hover:bg-mute ' +
+      (i < current ? 'bg-lime' : i === current ? 'bg-ink' : 'bg-line');
+    if (i === current) dots[i].className += ' !flex-[2]';
+  }
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+}
+
+function goTo(i) {
+  current = Math.max(0, Math.min(total - 1, i));
+  render();
+}
+
+prevBtn.addEventListener('click', () => goTo(current - 1));
+nextBtn.addEventListener('click', () => goTo(current + 1));
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goTo(current - 1); }
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(total - 1);
+});
+
+// Touch swipe support
+let touchX = null;
+document.addEventListener('touchstart', e => { touchX = e.changedTouches[0].clientX; });
+document.addEventListener('touchend', e => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 60) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+  touchX = null;
+});
+
+render();
+</script>
+</body>
+</html>

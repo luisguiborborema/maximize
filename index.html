@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Alta Performance Comercial — Maximize Assessoria Esportiva</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -135,9 +136,22 @@ tailwind.config = {
   .meter > span { display:block; height:100%; border-radius:99px; background:#10b981; }
 
   /* Title size system */
-  .h-hero { font-size: clamp(38px, 5.6vw, 84px); line-height:.92; letter-spacing:-.035em; }
-  .h-1    { font-size: clamp(28px, 3.4vw, 48px); line-height:1.02; letter-spacing:-.03em; }
-  .h-2    { font-size: clamp(20px, 2vw, 28px);  line-height:1.1;  letter-spacing:-.02em; }
+  .h-hero { font-size: clamp(38px, 5.6vw, 72px); line-height:1.15; letter-spacing:-.03em; }
+  .h-1    { font-size: clamp(24px, 2.6vw, 38px); line-height:1.3;  letter-spacing:-.02em; }
+  .h-2    { font-size: clamp(18px, 1.8vw, 24px); line-height:1.4;  letter-spacing:-.015em; }
+
+  /* ============================================
+     ESPAÇAMENTO GENEROSO — final.
+     ============================================ */
+  .slide h1.h-hero,
+  .slide h2.h-hero { margin-bottom: 2rem !important; }
+  .slide h2.h-1    { margin-bottom: 2rem !important; }
+  .slide h3.h-2    { margin-bottom: 1.5rem !important; }
+
+  /* Força respiro entre títulos e elementos seguintes */
+  .slide h2.h-1 + p    { margin-top: 1.25rem !important; }
+  .slide h3.h-2 + .font-narrow,
+  .slide h3.h-2 + div  { margin-top: 1rem !important; }
 
   /* nav button hover */
   .navbtn { transition: all .2s ease; }
@@ -260,8 +274,8 @@ tailwind.config = {
           <span class="udot"></span>
           <span class="eyebrow">02 · Choque de Realidade</span>
         </div>
-        <h2 class="h-1 font-display font-black text-ink mb-3">A grande virada de <span class="text-lime">jogo.</span></h2>
-        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+        <h2 class="h-1 font-display font-black text-ink mb-5" style="margin-bottom: 4rem; line-height: 1.4;">A grande virada de <span class="text-lime">jogo.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10" style="padding-top: 0.5rem;">
           O lead que entra pela porta da Maximize <span class="text-ink font-semibold">não é mais o mesmo</span>.
           Quem chega pela indicação tem paciência de atleta veterano. Quem chega pelo Instagram tem o dedo no botão de "fechar conversa".
         </p>
@@ -271,8 +285,8 @@ tailwind.config = {
           <div class="card p-8 relative overflow-hidden">
             <div class="absolute right-5 top-5 eyebrow">Antes / 95% do faturamento</div>
             <i class="fa-solid fa-handshake-angle text-royal text-3xl"></i>
-            <h3 class="h-2 font-display font-black mt-5 mb-1 text-ink">Lead presencial</h3>
-            <div class="font-narrow text-mute uppercase tracking-widest text-xs mb-6">Indicação · Confiança · Tradição</div>
+            <h3 class="h-2 font-display font-black mt-5 mb-3 text-ink" style="margin-bottom: 2.5rem; line-height: 1.5;">Lead presencial</h3>
+            <div class="font-narrow text-mute uppercase tracking-widest text-xs mb-6" style="padding-top: 0.25rem;">Indicação · Confiança · Tradição</div>
 
             <ul class="space-y-4 text-graphite">
               <li class="flex items-start gap-3"><i class="fa-solid fa-check text-royal mt-1"></i><div>Já <span class="text-ink font-semibold">conhece a marca</span> antes do primeiro "oi"</div></li>
@@ -291,8 +305,8 @@ tailwind.config = {
           <div class="card p-8 relative overflow-hidden border-lime/40 ring-1 ring-lime/20">
             <div class="absolute right-5 top-5 eyebrow text-lime">Agora / Expansão nacional</div>
             <i class="fa-solid fa-bolt-lightning text-lime text-3xl"></i>
-            <h3 class="h-2 font-display font-black mt-5 mb-1 text-ink">Lead digital (tráfego pago)</h3>
-            <div class="font-narrow text-mute uppercase tracking-widest text-xs mb-6">Impulso · Comparação · Pressa</div>
+            <h3 class="h-2 font-display font-black mt-5 mb-3 text-ink" style="margin-bottom: 2.5rem; line-height: 1.5;">Lead digital (tráfego pago)</h3>
+            <div class="font-narrow text-mute uppercase tracking-widest text-xs mb-6" style="padding-top: 0.25rem;">Impulso · Comparação · Pressa</div>
 
             <ul class="space-y-4 text-graphite">
               <li class="flex items-start gap-3"><i class="fa-solid fa-bolt text-lime mt-1"></i><div><span class="text-ink font-semibold">Não te conhece.</span> Viu um anúncio entre 50 outros</div></li>
@@ -324,8 +338,8 @@ tailwind.config = {
           <span class="udot"></span>
           <span class="eyebrow">03 · O Fator SLA · Harvard Business Review</span>
         </div>
-        <h2 class="h-1 font-display font-black text-ink mb-3">A ciência por trás dos <span class="text-lime">5 minutos.</span></h2>
-        <p class="text-graphite max-w-3xl text-base md:text-lg mb-8">
+        <h2 class="h-1 font-display font-black text-ink mb-5" style="margin-bottom: 4rem; line-height: 1.4;">A ciência por trás dos <span class="text-lime">5 minutos.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-8" style="padding-top: 0.5rem;">
           Estudos da <span class="text-ink font-semibold">Harvard Business Review</span> mostram: cada minuto a mais sem resposta é
           uma venda escorrendo pelo ralo. Não é sobre estar disponível 24h. É sobre estar disponível <span class="text-ink font-semibold">nos primeiros minutos.</span>
         </p>
@@ -455,8 +469,8 @@ tailwind.config = {
           <span class="udot"></span>
           <span class="eyebrow">04 · Postura</span>
         </div>
-        <h2 class="h-1 font-display font-black text-ink mb-3">Pare de ser <span class="line-through text-mute">tirador de pedido.</span><br/>Vire <span class="text-lime">consultor.</span></h2>
-        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+        <h2 class="h-1 font-display font-black text-ink mb-5" style="margin-bottom: 4rem; line-height: 1.4;">Pare de ser <span class="line-through text-mute whitespace-nowrap">tirador de pedido</span>. Vire <span class="text-lime">consultor.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10" style="padding-top: 0.5rem;">
           Mandar a tabela de preços em PDF é o jeito mais educado, mais rápido e mais elegante de <span class="text-ink font-semibold">perder a venda.</span>
           O cliente do online não comprou preço — ele veio buscar um <span class="text-ink font-semibold">caminho</span>.
         </p>
@@ -468,7 +482,7 @@ tailwind.config = {
               <div class="font-narrow uppercase tracking-widest text-xs text-alert">Atendimento passivo</div>
               <i class="fa-solid fa-circle-xmark text-alert text-2xl"></i>
             </div>
-            <h3 class="h-2 font-display font-black text-ink mb-4">Tirador de pedido</h3>
+            <h3 class="h-2 font-display font-black text-ink mb-5" style="margin-bottom: 2.5rem; line-height: 1.5;">Tirador de pedido</h3>
             <div class="space-y-3 text-sm">
               <div class="bg-soft rounded-lg p-3 text-graphite">"Bom dia! Aqui está nossa <span class="font-semibold text-ink">tabela de preços em PDF</span>."</div>
               <div class="bg-soft rounded-lg p-3 text-graphite">"Qualquer dúvida estou à disposição."</div>
@@ -487,7 +501,7 @@ tailwind.config = {
               <div class="font-narrow uppercase tracking-widest text-xs text-lime">Venda ativa</div>
               <i class="fa-solid fa-circle-check text-lime text-2xl"></i>
             </div>
-            <h3 class="h-2 font-display font-black text-ink mb-4">Consultor de performance</h3>
+            <h3 class="h-2 font-display font-black text-ink mb-5" style="margin-bottom: 2.5rem; line-height: 1.5;">Consultor de performance</h3>
             <div class="space-y-3 text-sm">
               <div class="bg-soft rounded-lg p-3 text-graphite">"Oi <span class="text-ink font-semibold">João</span>! Vi que você se interessou pelo plano. Antes de qualquer coisa: qual é a sua <span class="font-semibold text-ink">próxima prova</span>?"</div>
               <div class="bg-soft rounded-lg p-3 text-graphite">"Você já treina hoje? Como tá a sua rotina?"</div>
@@ -517,8 +531,8 @@ tailwind.config = {
           <span class="udot"></span>
           <span class="eyebrow">05 · Bibliografia obrigatória</span>
         </div>
-        <h2 class="h-1 font-display font-black text-ink mb-3">Os 3 livros de <span class="text-lime">cabeceira</span> do time.</h2>
-        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+        <h2 class="h-1 font-display font-black text-ink mb-5" style="margin-bottom: 4rem; line-height: 1.4;">Os 3 livros de <span class="text-lime">cabeceira</span> do time.</h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10" style="padding-top: 0.5rem;">
           Não é leitura motivacional. É <span class="text-ink font-semibold">arsenal técnico</span>.
           Cada um resolve uma parte específica do funil: <span class="text-ink font-semibold">conexão</span>, <span class="text-ink font-semibold">investigação</span> e <span class="text-ink font-semibold">conversão</span>.
         </p>
@@ -535,8 +549,8 @@ tailwind.config = {
                   <div class="font-display font-black text-sm leading-tight">Como Fazer Amigos e Influenciar Pessoas</div>
                 </div>
               </div>
-              <h3 class="font-display font-black text-ink text-xl mb-1">Dale Carnegie</h3>
-              <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-4">Conexão · Rapport</div>
+              <h3 class="font-display font-black text-ink text-xl mb-2">Dale Carnegie</h3>
+              <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-4" style="padding-top: 0.25rem;">Conexão · Rapport</div>
               <p class="text-graphite text-sm leading-snug">Humanizar a conversa fria do WhatsApp. Transformar texto em <span class="text-ink font-semibold">presença.</span></p>
             </div>
           </div>
@@ -552,8 +566,8 @@ tailwind.config = {
                   <div class="font-display font-black text-sm leading-tight">SPIN Selling</div>
                 </div>
               </div>
-              <h3 class="font-display font-black text-ink text-xl mb-1">Neil Rackham</h3>
-              <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-4">Investigação · Diagnóstico</div>
+              <h3 class="font-display font-black text-ink text-xl mb-2">Neil Rackham</h3>
+              <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-4" style="padding-top: 0.25rem;">Investigação · Diagnóstico</div>
               <p class="text-graphite text-sm leading-snug">A metodologia de perguntas que <span class="text-ink font-semibold">vende sem empurrar</span>. O atleta se convence sozinho.</p>
             </div>
           </div>
@@ -569,8 +583,8 @@ tailwind.config = {
                   <div class="font-display font-black text-sm leading-tight">Armas da Persuasão</div>
                 </div>
               </div>
-              <h3 class="font-display font-black text-ink text-xl mb-1">Robert Cialdini</h3>
-              <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-4">Conversão · Gatilhos</div>
+              <h3 class="font-display font-black text-ink text-xl mb-2">Robert Cialdini</h3>
+              <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-4" style="padding-top: 0.25rem;">Conversão · Gatilhos</div>
               <p class="text-graphite text-sm leading-snug">Os 6 gatilhos psicológicos que movem decisão. <span class="text-ink font-semibold">Ética e eficácia</span> no mesmo pacote.</p>
             </div>
           </div>
@@ -600,8 +614,8 @@ tailwind.config = {
           <span class="udot"></span>
           <span class="eyebrow">06 · Técnica 1 · Carnegie</span>
         </div>
-        <h2 class="h-1 font-display font-black text-ink mb-3">Aquecer o que é <span class="text-lime">frio.</span></h2>
-        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+        <h2 class="h-1 font-display font-black text-ink mb-5" style="margin-bottom: 4rem; line-height: 1.4;">Aquecer o que é <span class="text-lime">frio.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10" style="padding-top: 0.5rem;">
           O WhatsApp tem uma maldição: <span class="text-ink font-semibold">sem tom de voz, tudo soa robótico.</span>
           Carnegie é a vacina contra isso. Quatro movimentos simples — feitos em <span class="text-ink font-semibold">toda</span> conversa.
         </p>
@@ -664,8 +678,8 @@ tailwind.config = {
           <span class="udot"></span>
           <span class="eyebrow">07 · Técnica 2 · SPIN Selling</span>
         </div>
-        <h2 class="h-1 font-display font-black text-ink mb-3">O atleta se vende <span class="text-lime">sozinho.</span></h2>
-        <p class="text-graphite max-w-3xl text-base md:text-lg mb-8">
+        <h2 class="h-1 font-display font-black text-ink mb-5" style="margin-bottom: 4rem; line-height: 1.4;">O atleta se vende <span class="text-lime">sozinho.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-8" style="padding-top: 0.5rem;">
           SPIN é uma escada de perguntas. Você sobe um degrau de cada vez e, no topo, o lead <span class="text-ink font-semibold">já vendeu o plano pra si mesmo.</span>
           Aplicado ao Triathlon e Corrida:
         </p>
@@ -756,8 +770,8 @@ tailwind.config = {
           <span class="udot"></span>
           <span class="eyebrow">08 · Técnica 3 · Cialdini</span>
         </div>
-        <h2 class="h-1 font-display font-black text-ink mb-3">Os <span class="text-lime">3 gatilhos</span> que a Maximize tem de sobra.</h2>
-        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+        <h2 class="h-1 font-display font-black text-ink mb-5" style="margin-bottom: 4rem; line-height: 1.4;">Os <span class="text-lime">3 gatilhos</span> que a Maximize tem de sobra.</h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10" style="padding-top: 0.5rem;">
           Você não precisa inventar autoridade — a Maximize <span class="text-ink font-semibold">tem.</span>
           O trabalho é <span class="text-ink font-semibold">trazer essa força para a conversa</span>, naturalmente, no momento certo.
         </p>
@@ -768,7 +782,7 @@ tailwind.config = {
             <div class="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-royal/10"></div>
             <i class="fa-solid fa-medal text-royal text-3xl relative"></i>
             <h3 class="font-display font-black text-ink text-xl mt-4 mb-1">Autoridade</h3>
-            <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-5">Quem fala importa</div>
+            <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-5" style="padding-top: 0.25rem;">Quem fala importa</div>
             <p class="text-graphite text-sm mb-5">Referência consolidada em Triathlon, Corrida, Ciclismo e Natação <span class="text-ink font-semibold">no Espírito Santo.</span></p>
             <div class="bg-soft rounded-lg p-3 text-sm italic text-graphite">"A gente <span class="text-ink not-italic font-semibold">forma triatletas há mais de uma década</span> aqui em Vitória. Esse plano é o mesmo que aplica nos nossos atletas de pódio."</div>
           </div>
@@ -778,7 +792,7 @@ tailwind.config = {
             <div class="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-lime/15"></div>
             <i class="fa-solid fa-users-line text-lime text-3xl relative"></i>
             <h3 class="font-display font-black text-ink text-xl mt-4 mb-1">Prova social</h3>
-            <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-5">Quem já fez convence</div>
+            <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-5" style="padding-top: 0.25rem;">Quem já fez convence</div>
             <p class="text-graphite text-sm mb-5">Centenas de atletas <span class="text-ink font-semibold">cruzando linhas de chegada</span> com a camisa Maximize. Use isso.</p>
             <div class="bg-soft rounded-lg p-3 text-sm italic text-graphite">"Semana passada uma aluna <span class="text-ink not-italic font-semibold">na sua mesma situação</span> fechou os 21k em 1h58. Posso te mostrar o caso?"</div>
           </div>
@@ -788,7 +802,7 @@ tailwind.config = {
             <div class="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-ink/10"></div>
             <i class="fa-solid fa-hourglass-half text-ink text-3xl relative"></i>
             <h3 class="font-display font-black text-ink text-xl mt-4 mb-1">Escassez / Urgência</h3>
-            <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-5">O que é raro vale mais</div>
+            <div class="font-narrow uppercase tracking-widest text-xs text-mute mb-5" style="padding-top: 0.25rem;">O que é raro vale mais</div>
             <p class="text-graphite text-sm mb-5">Acompanhamento próximo significa <span class="text-ink font-semibold">vagas limitadas</span> — não é discurso, é verdade.</p>
             <div class="bg-soft rounded-lg p-3 text-sm italic text-graphite">"O plano com acompanhamento próximo tem <span class="text-ink not-italic font-semibold">vagas limitadas por treinador</span>. Hoje temos 2 abertas. Quer reservar a sua?"</div>
           </div>
@@ -819,8 +833,8 @@ tailwind.config = {
           <span class="udot"></span>
           <span class="eyebrow">09 · Processo · Kommo CRM</span>
         </div>
-        <h2 class="h-1 font-display font-black text-ink mb-3">Se não está no CRM, <span class="text-alert">não existe.</span></h2>
-        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+        <h2 class="h-1 font-display font-black text-ink mb-5" style="margin-bottom: 4rem; line-height: 1.4;">Se não está no CRM, <span class="text-alert">não existe.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10" style="padding-top: 0.5rem;">
           Memória trai. WhatsApp some. Anotação em caderno se perde. <span class="text-ink font-semibold">O Kommo é a memória oficial do time comercial.</span>
           Cada lead, cada etapa, cada tarefa futura — sempre lá.
         </p>
@@ -900,8 +914,8 @@ tailwind.config = {
           <span class="udot"></span>
           <span class="eyebrow">10 · Esforço Comercial</span>
         </div>
-        <h2 class="h-1 font-display font-black text-ink mb-3">A escada da <span class="text-lime">persistência inteligente.</span></h2>
-        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+        <h2 class="h-1 font-display font-black text-ink mb-5" style="margin-bottom: 4rem; line-height: 1.4;">A escada da <span class="text-lime">persistência inteligente.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10" style="padding-top: 0.5rem;">
           Lead que não responde não é lead perdido — é lead <span class="text-ink font-semibold">não trabalhado.</span>
           Sobe um degrau de cada vez, com criatividade. Cada degrau gera <span class="text-ink font-semibold">mais valor</span> que o anterior.
         </p>
@@ -983,8 +997,8 @@ tailwind.config = {
           <span class="udot"></span>
           <span class="eyebrow">11 · Acordo de Alta Performance</span>
         </div>
-        <h2 class="h-1 font-display font-black text-ink mb-3">O contrato silencioso que <span class="text-lime">começa hoje.</span></h2>
-        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10">
+        <h2 class="h-1 font-display font-black text-ink mb-5" style="margin-bottom: 4rem; line-height: 1.4;">O contrato silencioso que <span class="text-lime">começa hoje.</span></h2>
+        <p class="text-graphite max-w-3xl text-base md:text-lg mb-10" style="padding-top: 0.5rem;">
           Esses são os <span class="text-ink font-semibold">não-negociáveis</span> a partir desta sessão.
           Métricas medidas, transparência total, time alinhado.
         </p>
